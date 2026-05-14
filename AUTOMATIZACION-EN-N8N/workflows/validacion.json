@@ -1,0 +1,1714 @@
+{
+  "name": "validacion",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -880,
+        5040
+      ],
+      "id": "c8181a58-9e15-42d8-9c25-05b7f708128e",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "sendTo": "diquic@miumg.edu.gt",
+        "subject": "SOLICITUD DE  PRESTAMO",
+        "message": "=<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;\">\n\n  <h2 style=\"color: #2c3e50; text-align: center;\">Propuesta de Crédito Aprobada</h2>\n\n  <p>Hola <strong>{{ $json.nombre }}</strong>,</p>\n\n  <p>\n    Tras analizar tu documentación, hemos preparado la siguiente oferta financiera para ti:\n  </p>\n\n  <div style=\"background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;\">\n\n```\n<table style=\"width: 100%; border-collapse: collapse;\">\n\n  <tr>\n    <td style=\"padding: 8px 0; color: #7f8c8d;\">Monto solicitado:</td>\n    <td style=\"padding: 8px 0; text-align: right;\">\n      <strong>Q {{ $json.monto }}</strong>\n    </td>\n  </tr>\n\n  <tr>\n    <td style=\"padding: 8px 0; color: #7f8c8d;\">Plazo:</td>\n    <td style=\"padding: 8px 0; text-align: right;\">\n      <strong>{{ $json.analisis_financiero.plazo_meses }} meses</strong>\n    </td>\n  </tr>\n\n  <tr>\n    <td style=\"padding: 8px 0; color: #7f8c8d;\">Cuota mensual:</td>\n    <td style=\"padding: 8px 0; text-align: right; color: #27ae60; font-size: 1.2em;\">\n      <strong>Q {{ $json.analisis_financiero.cuota_mensual.toFixed(2) }}</strong>\n    </td>\n  </tr>\n\n  <tr>\n    <td style=\"padding: 8px 0; color: #7f8c8d;\">Tasa aplicada:</td>\n    <td style=\"padding: 8px 0; text-align: right;\">\n      {{ $json.analisis_financiero.tasa_anual_aplicada }} anual\n    </td>\n  </tr>\n\n</table>\n```\n\n  </div>\n\n  <p style=\"text-align: center; margin-bottom: 25px;\">\n    <strong>¿Deseas aceptar esta propuesta?</strong>\n  </p>\n\n  <div style=\"text-align: center; margin-top: 20px;\">\n\n```\n<a href=\"http://localhost:5678/webhook/confirmacion_final_v1?id={{ $json.id }}&decision=aceptado\"\n   style=\"background-color: #27ae60; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px; display: inline-block;\">\n   SÍ, ACEPTO LA CUOTA\n</a>\n\n<a href=\"http://localhost:5678/webhook/confirmacion_final_v1?id={{ $json.id }}&decision=rechazado\"\n   style=\"background-color: #e74c3c; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;\">\n   NO, GRACIAS\n</a>\n```\n\n  </div>\n\n  <p style=\"font-size: 0.85em; color: #95a5a6; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px;\">\n    *Esta oferta es válida por 48 horas. Al aceptar, nuestro equipo te enviará los requisitos para el desembolso físico.\n  </p>\n\n</div>\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1872,
+        4416
+      ],
+      "id": "4b6e8da9-43e2-4224-a8dc-90011c6b05dc",
+      "name": "confirmacion del cliente1",
+      "webhookId": "aa4f8702-a252-43da-b0bb-3ef0221305c7",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NKdCaGh8ynvce8tC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "diquic@miumg.edu.gt",
+        "subject": "DESEMBOLSO",
+        "message": "=<div style=\"font-family: Arial, sans-serif; color: #333; line-height: 1.6;\">\n  <h2 style=\"color: #27ae60;\">¡Todo listo para tu desembolso!</h2>\n  <p>Hola, nos alegra confirmarte que has aceptado las condiciones de tu crédito. Para completar el proceso y recibir tus fondos, por favor sigue estas instrucciones:</p>\n  \n  <div style=\"background-color: #f4f7f6; padding: 20px; border-left: 5px solid #27ae60; margin: 20px 0;\">\n    <strong>📍 Lugar de la cita:</strong> Agencia Central, 6a. Avenida, Zona 4, Ciudad de Guatemala.<br>\n    <strong>📅 Fecha sugerida:</strong> Próximo día hábil en horario de 9:00 AM a 4:00 PM.\n  </div>\n\n  <h3>Documentación Física Obligatoria:</h3>\n  <ul>\n    <li><strong>DPI Original:</strong> Debe estar vigente y en buen estado.</li>\n    <li><strong>Recibo de Luz:</strong> El recibo original de ENERGUATE que adjuntaste (no mayor a 3 meses).</li>\n    <li><strong>Constancia Laboral:</strong> Impresa, con firma y sello original de tu empresa.</li>\n    <li><strong>Fotocopias:</strong> 2 copias legibles de tu DPI de ambos lados.</li>\n  </ul>\n\n  <p>Al llegar, por favor indica en recepción que tienes un <strong>\"Crédito Pre-Aprobado por Sistema IA\"</strong> para que te den prioridad.</p>\n  \n  <p>¡Te esperamos!</p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1664,
+        5200
+      ],
+      "id": "48bcd5ba-bcec-4276-8cd1-584fe7e46202",
+      "name": "Send a message5",
+      "webhookId": "0c848e55-ca4b-4e73-8202-a5128c69d6c2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NKdCaGh8ynvce8tC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=<h1>¡Gracias! Hemos registrado tu aceptación. Pronto recibirás un correo con tu cita.</h1>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1840,
+        5200
+      ],
+      "id": "9abc1f94-5c6c-4c39-9a7f-86f20b6572ac",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const monto = parseFloat($json.monto || 0);\nconst plazo = parseInt($json.plazo || 0);\n\n// Lógica de Tasa Escalonada\nlet tasaAnual;\n\nif (plazo <= 12) {\n  tasaAnual = 0.12; // 12% anual si es a un año o menos (Interés Bajo)\n} else if (plazo <= 36) {\n  tasaAnual = 0.18; // 18% anual si es de 1 a 3 años (Interés Medio)\n} else {\n  tasaAnual = 0.25; // 25% anual si es a más de 3 años (Interés Alto)\n}\n\nconst tasaMensual = tasaAnual / 12;\n\n// Fórmula de cuota nivelada (Sistema Francés)\n// cuota = (P * i) / (1 - (1+i)^-n)\nconst cuota = (monto * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -plazo));\n\nconst totalAPagar = cuota * plazo;\nconst interesTotal = totalAPagar - monto;\nreturn [{\n  ...$json,\n  analisis_financiero: {\n    tasa_anual_aplicada: (tasaAnual * 100) + \"%\",\n    cuota_mensual: parseFloat(cuota.toFixed(2)),\n    total_a_pagar: parseFloat(totalAPagar.toFixed(2)),\n    interes_puro: parseFloat(interesTotal.toFixed(2)),\n    plazo_meses: plazo\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        4528
+      ],
+      "id": "98d3d1e6-b02b-407c-a648-6143b6e0bfe5",
+      "name": "CALCULO DE INTERES1"
+    },
+    {
+      "parameters": {
+        "jsCode": "let aprobado = true;\nlet razones = [];\n\n// 🔹 DATOS\nconst ingreso = $json.contrato?.total_mensual || 0;\nconst monto = parseFloat($json.monto || 0);\nconst plazo = parseInt($json.plazo || 0);\n\n// 🔹 VALIDACIONES BÁSICAS\nif (!monto || monto <= 0) {\n  aprobado = false;\n  razones.push(\"Monto inválido\");\n}\n\nif (!plazo || plazo <= 0) {\n  aprobado = false;\n  razones.push(\"Plazo inválido\");\n}\n\nif (!ingreso || ingreso <= 0) {\n  aprobado = false;\n  razones.push(\"Ingreso inválido\");\n}\n\n// 🔹 CAPACIDAD DE PAGO (30%)\nconst capacidadMax = ingreso * 0.3;\n\n// 🔹 ESTIMACIÓN SIMPLE (SIN INTERÉS)\nconst pagoEstimado = monto / plazo;\n\n// 🔹 VALIDACIÓN PRINCIPAL 🔥\nif (pagoEstimado > capacidadMax) {\n  aprobado = false;\n  razones.push(\"El plazo seleccionado no permite cubrir el crédito con su ingreso\");\n}\n\n// 🔹 VALIDACIÓN MONTO MÁXIMO\nconst montoMax = ingreso * 20;\n\nif (monto > montoMax) {\n  aprobado = false;\n  razones.push(\"Monto demasiado alto para su nivel de ingresos\");\n}\n\n// 🔹 RESULTADO\nreturn [{\n  ...$json,\n  aprobado,\n  capacidad_pago: capacidadMax,\n  pago_estimado: pagoEstimado,\n  monto_maximo_permitido: montoMax,\n  razones\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        4704
+      ],
+      "id": "a97c5d25-0f3d-4685-ac3f-b379bc43f00b",
+      "name": "examinar1"
+    },
+    {
+      "parameters": {
+        "sendTo": "diquic@miumg.edu.gt",
+        "subject": "ESTADO DE SOLICITUD",
+        "message": "={{ $json.razones[1] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1632,
+        4768
+      ],
+      "id": "9e14d046-81fc-420c-aec2-8c9e73596d84",
+      "name": "Send a message6",
+      "webhookId": "229e021e-a4b6-47eb-9f94-d6245ebae20f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NKdCaGh8ynvce8tC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "36001848-50af-4148-a9dd-923129fbed4b",
+              "leftValue": "={{ $json.aprobado }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1360,
+        4624
+      ],
+      "id": "0225c742-c100-4f4d-8858-26f2c47757f7",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "sendTo": "diquic@miumg.edu.gt",
+        "subject": "MENSAJE",
+        "message": "SOLICITUD RECHAZADA: VERIFIQUE BIEN SUS DOCUMENTOS PUEDE QUE ALGUNO DE SUS DATOS NO ESTEN ACTUALIZADOS",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1232,
+        5072
+      ],
+      "id": "805a182b-ee51-4a18-ae9b-c3318297c07c",
+      "name": "Send a message7",
+      "webhookId": "697378d9-3e36-499c-8aca-75e5b81bdcd1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NKdCaGh8ynvce8tC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "938537bb-00f2-4f5f-994f-fe83480cd19b",
+              "leftValue": "={{ $json['identidad_válida'] && $json.datos_consistentes }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1024,
+        4896
+      ],
+      "id": "2de01e13-543a-4c7d-909d-a2e3ea1230a5",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "jsCode": "function limpiar(texto) {\n  return (texto || \"\")\n    .toLowerCase()\n    .normalize(\"NFD\")\n    .replace(/[\\u0300-\\u036f]/g, \"\")\n    .replace(/\\s+/g, \" \")\n    .trim();\n}\n\n// ===== DATOS FORMULARIO =====\nconst nombreForm = limpiar($json.nombre);\nconst apellidoForm = limpiar($json.apellidos);\nconst nombreCompletoForm = limpiar($json.nombre + \" \" + $json.apellidos);\nconst dpiForm = ($json.numero_dpi || \"\").replace(/\\s+/g, \"\");\nconst telefono = ($json.telefono || \"\").replace(/\\s+/g, \"\");\nconst sueldoForm = parseFloat($json.sueldo || 0);\n\n// ===== DOCUMENTOS =====\nconst dpi = $json.dpi || {};\nconst contrato = $json.contrato || {};\nconst factura = $json.factura || {};\nconst ref_fam = $json.ref_fam || {};\n\n// ===== DATOS LIMPIOS =====\nconst nombreDPI = limpiar(dpi.nombres);\nconst apellidoDPI = limpiar(dpi.apellidos);\nconst dpiDoc = dpi.cui;\n\nconst nombreContrato = limpiar(contrato.nombre_completo);\nconst dpiContrato = contrato.numero_dpi;\nconst sueldoContrato = contrato.total_mensual || 0;\n\nconst nombreFactura = limpiar(factura.nombre_cliente);\n\nconst nombreRef = limpiar(ref_fam.nombre_completo);\nconst dpiRef = ref_fam.numero_dpi;\n\n// ===== VALIDACIONES =====\nlet coincidencias = 0;\nlet razones = [];\n\n// 🧾 NOMBRE\nif (nombreDPI.includes(nombreForm)) {\n  coincidencias++;\n} else {\n  razones.push(\"Nombre no coincide con DPI\");\n}\n\n// 🧾 APELLIDO\nif (apellidoDPI.includes(apellidoForm)) {\n  coincidencias++;\n} else {\n  razones.push(\"Apellido no coincide con DPI\");\n}\n\n// 🆔 DPI\nif (dpiForm === dpiDoc) {\n  coincidencias++;\n} else {\n  razones.push(\"DPI no coincide\");\n}\n\n// 📄 CONTRATO\nif (dpiContrato && dpiContrato !== dpiDoc) {\n  razones.push(\"DPI en contrato no coincide\");\n}\n\nif (nombreContrato && !nombreContrato.includes(nombreForm)) {\n  razones.push(\"Nombre en contrato no coincide\");\n}\n\n// 💰 SUELDO\nif (sueldoForm !== sueldoContrato) {\n  razones.push(\"El sueldo declarado no coincide con el contrato\");\n}\n\n// 🧾 FACTURA\nif (nombreFactura && !nombreFactura.includes(nombreForm)) {\n  razones.push(\"Nombre en factura no coincide\");\n}\n\n// 👨‍👩‍👧 REFERENCIA FAMILIAR\nif (dpiRef && dpiRef === dpiDoc) {\n  razones.push(\"Referencia familiar inválida (misma persona)\");\n}\n\nif (nombreRef && nombreRef === nombreCompletoForm) {\n  razones.push(\"Referencia familiar no puede ser el mismo solicitante\");\n}\n\n// 📱 TELÉFONO\nif (!/^\\d{8}$/.test(telefono)) {\n  razones.push(\"Teléfono inválido\");\n}\n\n// ===== RESULTADO FINAL =====\nconst identidad_valida = coincidencias >= 3;\nconst datos_consistentes = razones.length === 0;\n\nreturn [{\n  ...$json,\n  identidad_válida: identidad_valida,\n  datos_consistentes,\n  coincidencias,\n  razones,\n  aprobado: identidad_valida && datos_consistentes\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        4896
+      ],
+      "id": "9e776e82-042b-4348-892b-4df306b0a394",
+      "name": "verificacion de datos1"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        336,
+        4912
+      ],
+      "id": "f1c4dfe2-6865-4b08-9c32-4d3d2379dbfb",
+      "name": "Merge4"
+    },
+    {
+      "parameters": {
+        "jsCode": "function limpiar(texto) {\n  if (!texto || typeof texto !== \"string\") return null;\n\n  try {\n    texto = texto.replace(/```json|```/g, \"\").trim();\n    return JSON.parse(texto);\n  } catch (e) {\n    return null;\n  }\n}\n\n// 🔹 limpiar todo correctamente\nconst contrato = limpiar($json.contrato);\nconst ref_fam = limpiar($json.fam);\nconst dpi = limpiar($json.dpsol);\nconst factura = limpiar($json.factura);\n\nreturn [{\n  ...$json,\n  contrato,\n  ref_fam,\n  dpi,\n  factura\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        688,
+        4896
+      ],
+      "id": "40f923dd-a17d-454c-942f-6b3888500a35",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "text": "Analiza la imagen y responde SOLO en JSON:\n\n{\n\"nombre_completo\": \"Nombre y apellidos del trabajador\",\n  \"numero_dpi\": \"Número de identificación sin espacios\",\n  \"nombre_empresa\": \"Nombre de la entidad empleadora\",\n  \"puesto_trabajo\": \"Cargo que ocupa\",\n  \"salario_base\": 0.00,\n  \"bonificacion_incentivo\": 0.00,\n  \"total_mensual\": 0.00,\n  \"fecha_inicio_contrato\": \"AAAA-MM-DD\",\n  \"tipo_contrato\": \"Indefinido / Temporal / Plazo fijo\",\n  \"lugar_trabajo\": \"Dirección o zona donde presta servicios\"\n\n \n}",
+        "inputType": "base64",
+        "binaryPropertyName": "constancia laboral",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -304,
+        5360
+      ],
+      "id": "9fdfd36e-457d-45e1-9a96-0eb650f145c8",
+      "name": "contrato1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "openAiApi": {
+          "id": "FBnHYC7Lyy1Kfd5V",
+          "name": "OpenAI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        80,
+        5008
+      ],
+      "id": "e47cf071-4547-483e-8be5-986b3f3f3109",
+      "name": "Merge5"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -48,
+        5232
+      ],
+      "id": "6514bb83-b056-44fc-a3eb-1480376801b2",
+      "name": "Merge6"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -128,
+        5056
+      ],
+      "id": "2c71c9bb-0461-4535-b862-9d21b7ceb65c",
+      "name": "Merge7"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "text": "Analiza el DPI y responde SOLO en JSON:\n\n{\n\"tipo\": \"identificacion_personal\",\n\"cui\": \"Código Único de Identificación (13 dígitos sin espacios)\",\n\"nombres\": \"Nombres del titular\",\n\"apellidos\": \"Apellidos del titular\",\n\"fecha_nacimiento\": \"AAAA-MM-DD\",\n\"genero\": \"M/F\",\n\"nacionalidad\": \"GTM u otra\",\n\"fecha_vencimiento\": \"AAAA-MM-DD\"\n}",
+        "inputType": "base64",
+        "binaryPropertyName": "dpi",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -304,
+        4992
+      ],
+      "id": "9135d3ac-26d8-4e4c-bc2f-35b9b9212bdd",
+      "name": "dpi_sol1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "openAiApi": {
+          "id": "FBnHYC7Lyy1Kfd5V",
+          "name": "OpenAI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "text": "Analiza la factura y responde SOLO en JSON:\n\n{\n\"tipo\": \"comprobante_domicilio\",\n\"nombre_cliente\": \"Nombre que aparece en la factura\",\n\"direccion_servicio\": \"Dirección completa del suministro\",\n\"numero_contador\": \"Número de medidor o contador\",\n\"empresa_emisora\": \"Nombre de la empresa (ej. ENERGUATE, EEGSA)\"\n}",
+        "inputType": "base64",
+        "binaryPropertyName": "factura",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -304,
+        5184
+      ],
+      "id": "789019ca-7d01-409a-beea-2465e831bdf3",
+      "name": "factura1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "openAiApi": {
+          "id": "FBnHYC7Lyy1Kfd5V",
+          "name": "OpenAI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "text": "Extrae la información del DPI y responde SOLO en JSON válido sin texto adicional:\n\n{\n  \"tipo\": \"identificacion_personal\",\n\"cui\": \"Código Único de Identificación (13 dígitos sin espacios)\",\n\"nombres\": \"Nombres del titular\",\n\"apellidos\": \"Apellidos del titular\",\n\"fecha_nacimiento\": \"AAAA-MM-DD\",\n\"genero\": \"M/F\",\n\"nacionalidad\": \"GTM u otra\",\n\"fecha_vencimiento\": \"AAAA-MM-DD\"\n}",
+        "inputType": "base64",
+        "binaryPropertyName": "ref_fam_dpi",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -304,
+        4832
+      ],
+      "id": "47a09d53-b292-473b-afc9-4d940fcd6c99",
+      "name": "ref_familiar1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "openAiApi": {
+          "id": "FBnHYC7Lyy1Kfd5V",
+          "name": "OpenAI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "confirmacion_final_v1",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        1472,
+        5200
+      ],
+      "id": "e794cbab-08cc-4fc0-bda3-16a6b4a0d569",
+      "name": "Webhook1",
+      "webhookId": "5bb632f5-79f8-4369-9022-ff7eab2465ad"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "882de011-a604-494c-b7c7-c26fbc095779",
+              "name": "fam",
+              "value": "={{ $('ref_familiar1').item.json['0'].content[0].text }}",
+              "type": "string"
+            },
+            {
+              "id": "0a1e7f67-79f0-4066-93e6-84ae7a8cd4fc",
+              "name": "contrato",
+              "value": "={{ $('contrato1').item.json['0'].content[0].text }}",
+              "type": "string"
+            },
+            {
+              "id": "488cb6bc-4216-44ba-ad62-bf99977841e6",
+              "name": "dpsol",
+              "value": "={{ $('dpi_sol1').item.json['0'].content[0].text }}",
+              "type": "string"
+            },
+            {
+              "id": "7925e1a0-fb72-4989-a331-c7c633f33baf",
+              "name": "factura",
+              "value": "={{ $('factura1').item.json['0'].content[0].text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        512,
+        4912
+      ],
+      "id": "871278ca-9af3-41fb-96cc-db42b9ccb688",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "sendTo": "diquic@miumg.edu.gt",
+        "subject": "hola",
+        "emailType": "text",
+        "message": "hemos tenido un inconveniente técnico procesando tu solicitud. Por favor, intenta de nuevo en unos minutos\".",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        5248
+      ],
+      "id": "510d9958-f2ea-4207-bb29-aeb390986087",
+      "name": "Send a message",
+      "webhookId": "9bb93bb0-03c5-493f-9d2c-453a5ea2790b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NKdCaGh8ynvce8tC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        384,
+        5232
+      ],
+      "id": "8737c667-2937-47b5-a3aa-2d2dc674dfba",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "datos_laborales",
+          "mode": "list",
+          "cachedResultName": "datos_laborales"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "salario_base": "={{ $('Edit Fields2').item.json.contrato.salario_base }}",
+            "bonificacion_incentivo": "={{ $('Edit Fields2').item.json.contrato.bonificacion_incentivo }}",
+            "total_mensual": "={{ $('Edit Fields2').item.json.contrato.total_mensual }}",
+            "nombre_empresa": "={{ $('Edit Fields2').item.json.contrato.nombre_empresa }}",
+            "puesto_trabajo": "={{ $('Edit Fields2').item.json.contrato.puesto_trabajo }}",
+            "tipo_contrato": "={{ $('Edit Fields2').item.json.contrato.tipo_contrato }}",
+            "fecha_inicio_contrato": "={{ $('Edit Fields2').item.json.contrato.fecha_inicio_contrato }}",
+            "lugar_trabajo": "={{ $('Edit Fields2').item.json.contrato.lugar_trabajo }}",
+            "cliente_id": "={{ $node[\"clientes1\"].json[\"id\"] }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "cliente_id",
+              "displayName": "cliente_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre_empresa",
+              "displayName": "nombre_empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "puesto_trabajo",
+              "displayName": "puesto_trabajo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "salario_base",
+              "displayName": "salario_base",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "bonificacion_incentivo",
+              "displayName": "bonificacion_incentivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_mensual",
+              "displayName": "total_mensual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tipo_contrato",
+              "displayName": "tipo_contrato",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_inicio_contrato",
+              "displayName": "fecha_inicio_contrato",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "lugar_trabajo",
+              "displayName": "lugar_trabajo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3152,
+        4528
+      ],
+      "id": "db5081b9-d014-4020-8e02-a8fe3e5797ed",
+      "name": "laborales1",
+      "credentials": {
+        "postgres": {
+          "id": "vZ8WGARikKBel0sI",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "creditos",
+          "mode": "list",
+          "cachedResultName": "creditos"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "estatus_aprobacion": false,
+            "monto_aprobado": "={{ $('calculo de interes').item.json.monto }}",
+            "plazo_meses": "={{ $('calculo de interes').item.json.plazo }}",
+            "cuota_mensual": "={{ $('calculo de interes').item.json.analisis_financiero.cuota_mensual }}",
+            "total_a_pagar": "={{ $('calculo de interes').item.json.analisis_financiero.total_a_pagar }}",
+            "capacidad_pago_disponible": "={{ $('calculo de interes').item.json.capacidad_pago }}",
+            "tasa_anual": "={{ $('calculo de interes').item.json.analisis_financiero.tasa_anual_aplicada }}",
+            "cliente_id": "={{ $node[\"clientes1\"].json[\"id\"] }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "cliente_id",
+              "displayName": "cliente_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "monto_aprobado",
+              "displayName": "monto_aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "plazo_meses",
+              "displayName": "plazo_meses",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cuota_mensual",
+              "displayName": "cuota_mensual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tasa_anual",
+              "displayName": "tasa_anual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_a_pagar",
+              "displayName": "total_a_pagar",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "capacidad_pago_disponible",
+              "displayName": "capacidad_pago_disponible",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estatus_aprobacion",
+              "displayName": "estatus_aprobacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_aprobacion",
+              "displayName": "fecha_aprobacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2992,
+        4528
+      ],
+      "id": "2213cfe2-2656-4762-8d3e-4e81e812b9ad",
+      "name": "creditos1",
+      "credentials": {
+        "postgres": {
+          "id": "vZ8WGARikKBel0sI",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "referencias_familiares",
+          "mode": "list",
+          "cachedResultName": "referencias_familiares"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "cui": "={{ $('ref_fam').item.json.ref_fam.cui }}",
+            "nombres": "={{ $('ref_fam').item.json.body.ref_fam_nombre }}",
+            "apellidos": "={{ $('ref_fam').item.json.body.ref_fam_nombre }}",
+            "fecha_nacimiento": "={{ $('ref_fam').item.json.ref_fam.fecha_nacimiento }}",
+            "cliente_id": "={{ $json.id }}",
+            "telefono": "="
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "cliente_id",
+              "displayName": "cliente_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "cui",
+              "displayName": "cui",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombres",
+              "displayName": "nombres",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "apellidos",
+              "displayName": "apellidos",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_nacimiento",
+              "displayName": "fecha_nacimiento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "parentesco",
+              "displayName": "parentesco",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2800,
+        4528
+      ],
+      "id": "772c8d40-4508-401f-99e8-b99a7aa08b47",
+      "name": "ref_fam1",
+      "credentials": {
+        "postgres": {
+          "id": "vZ8WGARikKBel0sI",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "clientes",
+          "mode": "list",
+          "cachedResultName": "clientes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombres": "={{ $('cliente').item.json.nombre }}",
+            "apellidos": "={{ $('cliente').item.json.apellidos }}",
+            "telefono": "={{ $('cliente').item.json.telefono }}",
+            "correo": "={{ $('cliente').item.json.correo }}",
+            "fecha_vencimiento_dpi": "={{ $('cliente').item.json.dpi.fecha_vencimiento }}",
+            "cui": "={{ $('cliente').item.json.numero_dpi }}",
+            "fecha_nacimiento": "={{ $('cliente').item.json.dpi.fecha_nacimiento }}",
+            "genero": "={{ $('cliente').item.json.dpi.genero }}",
+            "nacionalidad": "={{ $('cliente').item.json.dpi.nacionalidad }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "cui",
+              "displayName": "cui",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombres",
+              "displayName": "nombres",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "apellidos",
+              "displayName": "apellidos",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_nacimiento",
+              "displayName": "fecha_nacimiento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "genero",
+              "displayName": "genero",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nacionalidad",
+              "displayName": "nacionalidad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "correo",
+              "displayName": "correo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_vencimiento_dpi",
+              "displayName": "fecha_vencimiento_dpi",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_registro",
+              "displayName": "fecha_registro",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "outputColumns": "=*"
+        }
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2592,
+        4528
+      ],
+      "id": "34a7bbea-4a98-4bcd-989d-907d0c85a0fa",
+      "name": "clientes1",
+      "credentials": {
+        "postgres": {
+          "id": "vZ8WGARikKBel0sI",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5e351dd0-620e-48a7-a739-753790da3376",
+              "name": "nombre",
+              "value": "={{ $('verificacion de datos1').item.json.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "eaa8072f-74c0-4094-a746-20bc9374e5f0",
+              "name": "apellidos",
+              "value": "={{ $('verificacion de datos1').item.json.apellidos }}",
+              "type": "string"
+            },
+            {
+              "id": "6d135933-8ed9-44d6-8c44-c047b4d4d275",
+              "name": "numero_dpi",
+              "value": "={{ $('verificacion de datos1').item.json.numero_dpi }}",
+              "type": "string"
+            },
+            {
+              "id": "983b5f97-6ebe-47e3-a3f7-3ff480000d53",
+              "name": "telefono",
+              "value": "={{ $('verificacion de datos1').item.json.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "12669759-d35e-4b3b-8dd6-25520c11f3f1",
+              "name": "correo",
+              "value": "={{ $('verificacion de datos1').item.json.correo }}",
+              "type": "string"
+            },
+            {
+              "id": "f2db34ba-5d41-49e1-b303-9518356071fc",
+              "name": "tipo de empleo",
+              "value": "={{ $('verificacion de datos1').item.json['tipo de empleo'] }}",
+              "type": "string"
+            },
+            {
+              "id": "cd626344-e049-44f4-b586-6c9c65369c7f",
+              "name": "sueldo",
+              "value": "={{ $('verificacion de datos1').item.json.sueldo }}",
+              "type": "string"
+            },
+            {
+              "id": "ad7c6299-18af-46c1-98b8-9018988e1366",
+              "name": "dpi.fecha_nacimiento",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.dpi.fecha_nacimiento }}",
+              "type": "string"
+            },
+            {
+              "id": "22721346-dbbb-4996-ad1e-99ef5d1434e6",
+              "name": "dpi.genero",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.dpi.genero }}",
+              "type": "string"
+            },
+            {
+              "id": "cd09c9e3-8618-4852-ab92-a8761f155420",
+              "name": "dpi.nacionalidad",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.dpi.nacionalidad }}",
+              "type": "string"
+            },
+            {
+              "id": "dfebcb01-9c21-4ed8-b724-19bf9888bf2a",
+              "name": "dpi.fecha_vencimiento",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.dpi.fecha_vencimiento }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2128,
+        4688
+      ],
+      "id": "9466d7ad-cb42-4e92-a656-0bf4c9d7f11e",
+      "name": "cliente"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "07aff04e-977d-47e6-9667-8e61bf1c45a8",
+              "name": "monto",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.monto }}",
+              "type": "string"
+            },
+            {
+              "id": "c54f3134-c741-4046-a2ad-e2dab7126ae4",
+              "name": "plazo",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.plazo }}",
+              "type": "string"
+            },
+            {
+              "id": "20627b9c-a3c3-44cd-a284-7cf670c0da4c",
+              "name": "contrato.salario_base",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.contrato.salario_base }}",
+              "type": "string"
+            },
+            {
+              "id": "374caedc-1908-4b7c-915a-628e4a912e0f",
+              "name": "pago_estimado",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.pago_estimado }}",
+              "type": "string"
+            },
+            {
+              "id": "a1186c2e-f3d4-4d3f-adf3-db652e0a1890",
+              "name": "capacidad_pago",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.capacidad_pago }}",
+              "type": "string"
+            },
+            {
+              "id": "2e2d11ad-3315-4d35-96ec-566b4bf18838",
+              "name": "analisis_financiero.tasa_anual_aplicada",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.analisis_financiero.tasa_anual_aplicada }}",
+              "type": "string"
+            },
+            {
+              "id": "2793ce69-d2fc-43f7-a3c1-357d24b3d50b",
+              "name": "analisis_financiero.cuota_mensual",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.analisis_financiero.cuota_mensual }}",
+              "type": "string"
+            },
+            {
+              "id": "73db0ced-c481-4b7e-9d94-508f2e7eb15e",
+              "name": "analisis_financiero.total_a_pagar",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.analisis_financiero.total_a_pagar }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2128,
+        4560
+      ],
+      "id": "f44920eb-d1e3-4b8d-b236-f7b1c1086efe",
+      "name": "calculo de interes"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a2dd8e34-ecbd-48e6-97a7-122bbc7f9f45",
+              "name": "body.ref_fam_nombre",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.body.ref_fam_nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "cb25f2d4-23b3-4179-a54f-75c59f127d04",
+              "name": "body.ref_fam_telefono",
+              "value": "={{ $('CALCULO DE INTERES1').item.json.body.ref_fam_telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "205e6023-cb40-4b78-adff-8cc587fc37e0",
+              "name": "ref_fam.fecha_nacimiento",
+              "value": "={{ $('Code in JavaScript1').item.json.ref_fam.fecha_nacimiento }}",
+              "type": "string"
+            },
+            {
+              "id": "c803ed38-b053-46f8-8182-068cae107d37",
+              "name": "ref_fam.genero",
+              "value": "={{ $('Code in JavaScript1').item.json.ref_fam.genero }}",
+              "type": "string"
+            },
+            {
+              "id": "2042ecdf-829c-474e-a08e-c9ea41ba6643",
+              "name": "ref_fam.nacionalidad",
+              "value": "={{ $('Code in JavaScript1').item.json.ref_fam.nacionalidad }}",
+              "type": "string"
+            },
+            {
+              "id": "b9a6ff98-1096-4d46-97f7-59b5ad4028b9",
+              "name": "ref_fam.fecha_vencimiento",
+              "value": "={{ $('Code in JavaScript1').item.json.ref_fam.fecha_vencimiento }}",
+              "type": "string"
+            },
+            {
+              "id": "9c89c76a-3451-4101-96a5-dfb96694008f",
+              "name": "ref_fam.cui",
+              "value": "={{ $('Code in JavaScript1').item.json.ref_fam.cui }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2144,
+        4816
+      ],
+      "id": "89ec58d2-39b6-4595-bed4-f8cc1893545b",
+      "name": "ref_fam"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "47f0432e-5fc0-4b08-b2b6-ace1a11364a5",
+              "name": "contrato.nombre_completo",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.nombre_completo }}",
+              "type": "string"
+            },
+            {
+              "id": "c468c984-7de9-433c-97e2-6e45c7ae1e84",
+              "name": "contrato.numero_dpi",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.numero_dpi }}",
+              "type": "string"
+            },
+            {
+              "id": "2e20ff05-0403-4891-a1f5-7b40287408ce",
+              "name": "contrato.nombre_empresa",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.nombre_empresa }}",
+              "type": "string"
+            },
+            {
+              "id": "db6b2332-6a60-499c-bea6-17811d9af65d",
+              "name": "contrato.puesto_trabajo",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.puesto_trabajo }}",
+              "type": "string"
+            },
+            {
+              "id": "958e4ca3-aa36-4969-a973-25e4b7ac0c61",
+              "name": "contrato.salario_base",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.salario_base }}",
+              "type": "string"
+            },
+            {
+              "id": "eeb74a68-0c7f-400b-b09d-6691d3ecc1aa",
+              "name": "contrato.bonificacion_incentivo",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.bonificacion_incentivo }}",
+              "type": "string"
+            },
+            {
+              "id": "eb168e37-3875-412a-9b07-29bd43592f2e",
+              "name": "contrato.total_mensual",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.total_mensual }}",
+              "type": "string"
+            },
+            {
+              "id": "37755e3e-72bb-4352-b6ea-9891028c9870",
+              "name": "contrato.fecha_inicio_contrato",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.fecha_inicio_contrato }}",
+              "type": "string"
+            },
+            {
+              "id": "94efe60d-35f7-47c2-9eeb-e15966b16e27",
+              "name": "contrato.tipo_contrato",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.tipo_contrato }}",
+              "type": "string"
+            },
+            {
+              "id": "8c4250e5-0236-4438-b3c7-88783871e4ec",
+              "name": "contrato.lugar_trabajo",
+              "value": "={{ $('Code in JavaScript1').item.json.contrato.lugar_trabajo }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2128,
+        4416
+      ],
+      "id": "7a980400-79c5-4f76-ba66-7b3df4fc3f68",
+      "name": "Edit Fields2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "ref_familiar1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "dpi_sol1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "factura1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "contrato1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "confirmacion del cliente1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message5": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CALCULO DE INTERES1": {
+      "main": [
+        [
+          {
+            "node": "confirmacion del cliente1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "examinar1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "CALCULO DE INTERES1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "examinar1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "verificacion de datos1": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge4": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "verificacion de datos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "contrato1": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge5": {
+      "main": [
+        [
+          {
+            "node": "Merge4",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge6": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge7": {
+      "main": [
+        [
+          {
+            "node": "Merge6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "dpi_sol1": {
+      "main": [
+        [
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "factura1": {
+      "main": [
+        [
+          {
+            "node": "Merge7",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "ref_familiar1": {
+      "main": [
+        [
+          {
+            "node": "Merge5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Send a message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "creditos1": {
+      "main": [
+        [
+          {
+            "node": "laborales1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ref_fam1": {
+      "main": [
+        [
+          {
+            "node": "creditos1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "clientes1": {
+      "main": [
+        [
+          {
+            "node": "ref_fam1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cliente": {
+      "main": [
+        [
+          {
+            "node": "ref_fam",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calculo de interes": {
+      "main": [
+        [
+          {
+            "node": "cliente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "calculo de interes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ref_fam": {
+      "main": [
+        [
+          {
+            "node": "clientes1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "4d8c435b-ea40-4789-940c-2dd595af84f6",
+  "meta": {
+    "instanceId": "d8ef8965f99e738057e1e9639fbd4067c2b4b43946b6f42fba8f5efa7344ca73"
+  },
+  "id": "NmTtzteQxa6A9MdE",
+  "tags": []
+}

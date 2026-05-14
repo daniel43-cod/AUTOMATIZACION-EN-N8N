@@ -1,0 +1,259 @@
+{
+  "name": "recepcion",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9b5a8331-4470-4fe6-b449-b08f1ca75c73",
+              "name": "nombre",
+              "value": "={{ $json.body.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "b507bd4d-3b56-45a1-bf6c-4bca8cded5a6",
+              "name": "apellidos",
+              "value": "={{ $json.body.apellido }}",
+              "type": "string"
+            },
+            {
+              "id": "70d47c0d-61e6-4f83-a7d9-2b95b73df9d0",
+              "name": "numero_dpi",
+              "value": "={{ $json.body.numero_dpi }}",
+              "type": "string"
+            },
+            {
+              "id": "9f92dd86-1cda-41dd-bbd4-d883cb28dcbe",
+              "name": "telefono",
+              "value": "={{ $json.body.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "b4c223a8-4b92-43dd-b231-eec1faf0b2c0",
+              "name": "correo",
+              "value": "={{ $json.body.correo }}",
+              "type": "string"
+            },
+            {
+              "id": "e3f93a89-50a9-4884-900b-9864e3b9fc6c",
+              "name": "nacionalidad",
+              "value": "={{ $json.body.nacionalidad }}",
+              "type": "string"
+            },
+            {
+              "id": "0e5d9b35-5a47-4dde-a393-7e30b1de3b77",
+              "name": "tipo de empleo",
+              "value": "={{ $json.body.tipo_empleo }}",
+              "type": "string"
+            },
+            {
+              "id": "8753cc14-85c7-480d-b945-efbb56df1feb",
+              "name": "sueldo",
+              "value": "={{ $json.body.salario }}",
+              "type": "string"
+            },
+            {
+              "id": "98b8160b-e846-406d-b5fb-f85a3e5c527f",
+              "name": "body.gastos_fijos",
+              "value": "={{ $json.body.gastos_fijos }}",
+              "type": "string"
+            },
+            {
+              "id": "4eca65d5-018b-46cb-a96e-b0003894e5b4",
+              "name": "body.ref_fam_nombre",
+              "value": "={{ $json.body.ref_fam_nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "ba69f975-2fad-440a-8e3e-fc515cb74c11",
+              "name": "body.ref_fam_telefono",
+              "value": "={{ $json.body.ref_fam_telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "7d8ef0cc-9ab9-4fbe-b691-5fccf7cb3bf0",
+              "name": "monto",
+              "value": "= {{ $json.body.monto }}",
+              "type": "number"
+            },
+            {
+              "id": "0fd0bed1-029e-48d9-a348-18e429fa459d",
+              "name": "plazo",
+              "value": "= {{ $json.body.plazo }}",
+              "type": "number"
+            },
+            {
+              "id": "32c59bb6-b474-4ab4-bdc9-f34502f68e15",
+              "name": "dpi",
+              "value": "dpi",
+              "type": "binary"
+            },
+            {
+              "id": "86e83824-b2d5-4d54-8a3a-620510949c00",
+              "name": "factura",
+              "value": "factura",
+              "type": "binary"
+            },
+            {
+              "id": "2674428c-5237-4121-be95-3a25459345bc",
+              "name": "constancia laboral",
+              "value": "constancia_laboral",
+              "type": "binary"
+            },
+            {
+              "id": "73790611-9547-4837-b804-83b9d39c8e28",
+              "name": "ref_fam_dpi",
+              "value": "ref_fam_dpi",
+              "type": "binary"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -8736,
+        368
+      ],
+      "id": "62347219-9406-42d6-afb0-bbe41556182a",
+      "name": "Edit Fields",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "solicitud_recepcion",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -8976,
+        368
+      ],
+      "id": "882ed720-38d8-4ace-87e1-70888248e3d5",
+      "name": "Webhook",
+      "webhookId": "8a89da2d-4331-4bda-8535-c20651bc0f59"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "NmTtzteQxa6A9MdE",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/NmTtzteQxa6A9MdE",
+          "cachedResultName": "validacion"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -8528,
+        368
+      ],
+      "id": "7649fade-1cf4-41ab-b4da-e838e8a0990a",
+      "name": "Call 'validacion'"
+    },
+    {
+      "parameters": {
+        "sendTo": "diquic@miumg.edu.gt",
+        "subject": "hola",
+        "emailType": "text",
+        "message": "hemos tenido un inconveniente técnico procesando tu solicitud. Por favor, intenta de nuevo en unos minutos\".",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -8672,
+        640
+      ],
+      "id": "830f763c-f974-4ffa-bbb3-f92fbe9f41ca",
+      "name": "Send a message4",
+      "webhookId": "9bb93bb0-03c5-493f-9d2c-453a5ea2790b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "NKdCaGh8ynvce8tC",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -8944,
+        640
+      ],
+      "id": "31e7cedc-b7f6-458a-9508-f18644c77a50",
+      "name": "Error Trigger",
+      "retryOnFail": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Call 'validacion'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'validacion'": {
+      "main": [
+        []
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fc74ba8b-6466-476f-a16d-c6a382fc4de7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d8ef8965f99e738057e1e9639fbd4067c2b4b43946b6f42fba8f5efa7344ca73"
+  },
+  "id": "EXCcG59F1r1YqWHP",
+  "tags": []
+}
